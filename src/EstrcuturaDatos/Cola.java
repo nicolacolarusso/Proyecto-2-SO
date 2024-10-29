@@ -8,6 +8,6 @@ package EstrcuturaDatos;
  *
  * @author nicolagabrielecolarusso
  */
-public class Nodos {
+public class Cola {
     
 }
