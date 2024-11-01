@@ -5,9 +5,9 @@
 package Classes;
 
 import Extra.ExtraFunctions;
-import EstrcuturaDatos.Cola;
-import EstrcuturaDatos.Lista;
-import EstrcuturaDatos.Nodo;
+import EstructuraDatos.Cola;
+import EstructuraDatos.Lista;
+import EstructuraDatos.Nodo;
 
 /**
  *

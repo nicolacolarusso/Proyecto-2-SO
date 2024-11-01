@@ -7,8 +7,8 @@ package Classes;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import EstrcuturaDatos.Cola;
-import EstrcuturaDatos.Lista;
+import EstructuraDatos.Cola;
+import EstructuraDatos.Lista;
 import proyecto2so.mainApp;
 
 /**
