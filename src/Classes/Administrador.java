@@ -19,8 +19,8 @@ public class Administrador extends Thread {
     
     private IA ia;
     private final Semaphore mutex;
-    private final Saga regularShow;
-    private final Saga avatar;
+    private final Saga starWars;
+    private final Saga starTrek;
     private int numRound = 0;
 
     public Administrador(IA ia, Semaphore mutex, Lista yellowCards1, Lista greenCards1, Lista redCards1,
@@ -28,30 +28,30 @@ public class Administrador extends Thread {
 
         this.ia = ia;
         this.mutex = mutex;
-        this.regularShow = new Saga("RegularShow", "/GUI/Assets/RegularShow",
+        this.starWars = new Saga("StarWars", "/GUI/Assets/StarWars",
                 yellowCards1, greenCards1, redCards1);
-        this.avatar = new Saga("Avatar", "/GUI/Assets/Avatar",
+        this.starTrek = new Saga("StarTrek", "/GUI/Assets/StarTrek",
                 yellowCards2, greenCards2, redCards2);
     }
 
     public void startSimulation() {
-//        ControlMainUI.getHome().setVisible(true);
+        ControlMainUI.getHome().setVisible(true);
 
         for (int i = 0; i < 20; i++) {
-            getRegularShow().createCharacter();
-            getAvatar().createCharacter();
+            getStarWars().createCharacter();
+            getStarTrek().createCharacter();
         }
 
-        ControlMainUI.getHome().getTvPanelUI1().updateUIQueue(getRegularShow().getQueue1(),
-                getRegularShow().getQueue2(),
-                getRegularShow().getQueue3(),
-                getRegularShow().getQueue4()
+        ControlMainUI.getHome().getTvPanelUI1().updateUIQueue(getStarWars().getQueue1(),
+                getStarWars().getQueue2(),
+                getStarWars().getQueue3(),
+                getStarWars().getQueue4()
         );
 
-        ControlMainUI.getHome().getTvPanelUI2().updateUIQueue(getAvatar().getQueue1(),
-                getAvatar().getQueue2(),
-                getAvatar().getQueue3(),
-                getAvatar().getQueue4()
+        ControlMainUI.getHome().getTvPanelUI2().updateUIQueue(getStarTrek().getQueue1(),
+                getStarTrek().getQueue2(),
+                getStarTrek().getQueue3(),
+                getStarTrek().getQueue4()
         );
 
         ControlMainUI.getHome().setVisible(true);
@@ -73,23 +73,23 @@ public class Administrador extends Thread {
                 int battleDuration = ControlMainUI.getHome().getBattleDuration().getValue();
                 ia.setTime(battleDuration);
 
-                updateReinforcementQueue(this.regularShow);
-                updateReinforcementQueue(this.avatar);
+                updateReinforcementQueue(this.starWars);
+                updateReinforcementQueue(this.starTrek);
 
                 if (numRound == 2) {
                     tryCreateCharacters();
                     numRound = 0;
                 }
 
-                Personaje regularShowFighter = chooseFighters(this.getRegularShow());
-                Personaje avatarFighter = chooseFighters(this.getAvatar());
+                Personaje starWarsFighter = chooseFighters(this.getStarWars());
+                Personaje starTrekFighter = chooseFighters(this.getStarTrek());
 
                 //------------------
                 //TODO: Pasarle los fighters a la IA
                 // Aca 0j0
                 //------------------
-                this.getIa().setRegularShowFighter(regularShowFighter);
-                this.getIa().setAvatarFighter(avatarFighter);
+                this.getIa().setStarWarsFighter(starWarsFighter);
+                this.getIa().setStarTrekFighter(starTrekFighter);
 
                 updateUIqueue();
                 mutex.release();
@@ -98,8 +98,8 @@ public class Administrador extends Thread {
 
                 this.numRound += 1;
                 
-                risePriorities(this.getRegularShow());
-                risePriorities(this.getAvatar());
+                risePriorities(this.getStarWars());
+                risePriorities(this.getStarTrek());
 
                 updateUIqueue();
 
@@ -142,16 +142,16 @@ public class Administrador extends Thread {
     }
 
     public void updateUIqueue() {
-        ControlMainUI.updateUIQueue("regularshow",
-                this.getRegularShow().getQueue1(),
-                this.getRegularShow().getQueue2(),
-                this.getRegularShow().getQueue3(),
-                this.getRegularShow().getQueue4());
-        ControlMainUI.updateUIQueue("avatar",
-                this.getAvatar().getQueue1(),
-                this.getAvatar().getQueue2(),
-                this.getAvatar().getQueue3(),
-                this.getAvatar().getQueue4());
+        ControlMainUI.updateUIQueue("starwars",
+                this.getStarWars().getQueue1(),
+                this.getStarWars().getQueue2(),
+                this.getStarWars().getQueue3(),
+                this.getStarWars().getQueue4());
+        ControlMainUI.updateUIQueue("startrek",
+                this.getStarTrek().getQueue1(),
+                this.getStarTrek().getQueue2(),
+                this.getStarTrek().getQueue3(),
+                this.getStarTrek().getQueue4());
     }
 
     private void updateReinforcementQueue(Saga tvShow) {
@@ -173,24 +173,20 @@ public class Administrador extends Thread {
         double randomNum = Math.random();
 
         if (randomNum <= 0.8) {
-            getRegularShow().createCharacter();
-            getAvatar().createCharacter();
+            getStarWars().createCharacter();
+            getStarTrek().createCharacter();
         }
     }
 
-    /**
-     * @return the regularShow
-     */
-    public Saga getRegularShow() {
-        return regularShow;
+    public Saga getStarWars() {
+        return starWars;
     }
 
-    /**
-     * @return the avatar
-     */
-    public Saga getAvatar() {
-        return avatar;
+    public Saga getStarTrek() {
+        return starTrek;
     }
+
+
 
     /**
      * @return the ia
