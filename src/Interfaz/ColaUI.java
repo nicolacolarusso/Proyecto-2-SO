@@ -1,12 +1,15 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Interfaz;
+
 
 import Classes.Personaje;
 import EstructuraDatos.Cola;
 import Extra.RenderImage;
+
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,10 +20,10 @@ import javax.swing.ScrollPaneConstants;
  *
  * @author diego
  */
-public class ColaUI extends javax.swing.JFrame {
+public class ColaUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form ColaUI
+     * Creates new form PruebaColaUI
      */
     private JPanel queuePanel; // Panel para agregar los JLabel
     private final RenderImage imageUtils = new RenderImage();
@@ -29,12 +32,13 @@ public class ColaUI extends javax.swing.JFrame {
         initComponents();
         myInitComponents();
     }
+
     public ColaUI(String title) {
         initComponents();
         myInitComponents();
         this.titleQueueUI.setText(title);
     }
-
+    
     private void myInitComponents() {
         queuePanel = new JPanel();
         getQueuePanel().setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -44,7 +48,7 @@ public class ColaUI extends javax.swing.JFrame {
         jScrollPaneQueue.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
     }
-
+    
     public void addCard(String urlImage) {
         ImageIcon imgIcon = imageUtils.loadScaledImage(urlImage, 60, 80);
         JLabel etiqueta = new JLabel(imgIcon);
@@ -62,7 +66,6 @@ public class ColaUI extends javax.swing.JFrame {
         queuePanel.revalidate();
         queuePanel.repaint();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,19 +76,15 @@ public class ColaUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         backgroundQueue = new javax.swing.JPanel();
         titleQueueUI = new javax.swing.JLabel();
         jScrollPaneQueue = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        backgroundQueue.setBackground(new java.awt.Color(204, 204, 204));
+        backgroundQueue.setBackground(new java.awt.Color(255, 255, 255));
         backgroundQueue.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titleQueueUI.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
@@ -107,36 +106,18 @@ public class ColaUI extends javax.swing.JFrame {
         jLabel2.setText("Final de la cola");
         backgroundQueue.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 120, -1));
 
-        jPanel1.add(backgroundQueue, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 150));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        pack();
+        add(backgroundQueue, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 150));
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String args[]) {
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ColaUI().setVisible(true);
-            }
-        });
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundQueue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPaneQueue;
     private javax.swing.JLabel titleQueueUI;
     // End of variables declaration//GEN-END:variables
-/**
-     * @return the queuePanel
-     */
+
     public JPanel getQueuePanel() {
         return queuePanel;
     }
@@ -144,9 +125,8 @@ public class ColaUI extends javax.swing.JFrame {
     /**
      * @return the titleQueueUI
      */
-    public javax.swing.JLabel getTitleQueueUI() {
+    public javax.swing.JLabel getTitleColaUI() {
         return titleQueueUI;
     }
-
 
 }
