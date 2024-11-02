@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import EstructuraDatos.Cola;
 import EstructuraDatos.Lista;
+import Interfaz.Controlador;
 import proyecto2so.mainApp;
 
 /**
@@ -35,26 +36,26 @@ public class Administrador extends Thread {
     }
 
     public void startSimulation() {
-        ControlMainUI.getHome().setVisible(true);
+        Controlador.getHome().setVisible(true);
 
         for (int i = 0; i < 20; i++) {
             getStarWars().createCharacter();
             getStarTrek().createCharacter();
         }
 
-        ControlMainUI.getHome().getTvPanelUI1().updateUIQueue(getStarWars().getQueue1(),
+        Controlador.getHome().getmoviePanelStarWars().updateUICola(getStarWars().getQueue1(),
                 getStarWars().getQueue2(),
                 getStarWars().getQueue3(),
                 getStarWars().getQueue4()
         );
 
-        ControlMainUI.getHome().getTvPanelUI2().updateUIQueue(getStarTrek().getQueue1(),
+        Controlador.getHome().getmoviePanelStarTrek().updateUICola(getStarTrek().getQueue1(),
                 getStarTrek().getQueue2(),
                 getStarTrek().getQueue3(),
                 getStarTrek().getQueue4()
         );
 
-        ControlMainUI.getHome().setVisible(true);
+        Controlador.getHome().setVisible(true);
 
         try {
             mutex.acquire();
@@ -70,7 +71,7 @@ public class Administrador extends Thread {
     public void run() {
         while (true) {
             try {
-                int battleDuration = ControlMainUI.getHome().getBattleDuration().getValue();
+                int battleDuration = Controlador.getHome().getBattleDuration().getValue();
                 ia.setTime(battleDuration);
 
                 updateReinforcementQueue(this.starWars);
@@ -91,7 +92,7 @@ public class Administrador extends Thread {
                 this.getIa().setStarWarsFighter(starWarsFighter);
                 this.getIa().setStarTrekFighter(starTrekFighter);
 
-                updateUIqueue();
+                updateUIcola();
                 mutex.release();
                 Thread.sleep(100);
                 mutex.acquire();
@@ -101,7 +102,7 @@ public class Administrador extends Thread {
                 risePriorities(this.getStarWars());
                 risePriorities(this.getStarTrek());
 
-                updateUIqueue();
+                updateUIcola();
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,20 +135,20 @@ public class Administrador extends Thread {
     private Personaje chooseFighters(Saga tvShow) {
         if (tvShow.getQueue1().isEmpty()) {
             tvShow.updateQueue1();
-            this.updateUIqueue();
+            this.updateUIcola();
         }
         Personaje fighter = tvShow.getQueue1().dequeue();
         fighter.setCounter(0);
         return fighter;
     }
 
-    public void updateUIqueue() {
-        ControlMainUI.updateUIQueue("starwars",
+    public void updateUIcola() {
+        Controlador.updateUICola("starwars",
                 this.getStarWars().getQueue1(),
                 this.getStarWars().getQueue2(),
                 this.getStarWars().getQueue3(),
                 this.getStarWars().getQueue4());
-        ControlMainUI.updateUIQueue("startrek",
+        Controlador.updateUICola("startrek",
                 this.getStarTrek().getQueue1(),
                 this.getStarTrek().getQueue2(),
                 this.getStarTrek().getQueue3(),

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import proyecto2so.mainApp;
 import Extra.RenderImage;
+import Interfaz.Controlador;
 
 /**
  *
@@ -43,35 +44,37 @@ public class IA extends Thread{
 
                 this.round += 1;
 
-                ControlMainUI.getHome().getWinnerLabelID().setText("");
-                ControlMainUI.getHome().getIaStatusLabel().setText("Determinando el resultado del combate...");
+                Controlador.getHome().getWinnerLabelID().setText("");
+                Controlador.getHome().getIaStatusLabel().setText("Determinando el resultado del combate...");
                 updateCardsUI(getStarWarsFighter(), getStarTrekFighter());
 
-                ControlMainUI.getHome().getRoundLabel().setText("Round: " + String.valueOf(round));
+                Controlador.getHome().getRoundLabel().setText("Round: " + String.valueOf(round));
 
                 Thread.sleep((long) (this.getTime() * 1000 * 0.7));
-
+                
+                
                 double aux = Math.random();
-                AudioManager audioManager = new AudioManager(); 
+                //audioooo
+                //AudioManager audioManager = new AudioManager(); 
 
                 if (aux <= 0.4) {
-                    ControlMainUI.getHome().getIaStatusLabel().setText("¡Hay un ganador!");
-                    CharacterTv winner = getWinnerCharacter(this.starWarsFighter, this.starTrekFighter);
-                    ControlMainUI.getHome().getWinnerLabelID().setText(winner.getCharacterId());
-                    audioManager.playSoundEffect("/GUI/Assets/victory.wav", 2.0f);
+                    Controlador.getHome().getIaStatusLabel().setText("¡Hay un ganador!");
+                    Personaje winner = getWinnerCharacter(this.starWarsFighter, this.starTrekFighter);
+                    Controlador.getHome().getWinnerLabelID().setText(winner.getCharacterId());
+                    //audioManager.playSoundEffect("/GUI/Assets/victory.wav", 2.0f);
                     Thread.sleep((long) ((getTime() * 1000 * 0.3) * 0.6));
 
                 } else if (aux > 0.40 && aux <= 0.67) {
-                    ControlMainUI.getHome().getIaStatusLabel().setText("¡El combate termina en empate!");
-                    audioManager.playSoundEffect("/GUI/Assets/tie.wav", 2.0f);
+                    Controlador.getHome().getIaStatusLabel().setText("¡El combate termina en empate!");
+                    //audioManager.playSoundEffect("/GUI/Assets/tie.wav", 2.0f);
                     Thread.sleep((long) ((getTime() * 1000 * 0.3) * 0.6));
                     
 
                     this.getAdministrator().getStarWars().getQueue1().enqueue(this.starWarsFighter);
                     this.getAdministrator().getStarTrek().getQueue1().enqueue(this.starTrekFighter);
                 } else {
-                    ControlMainUI.getHome().getIaStatusLabel().setText("El combate no se llevará a cabo.");
-                    audioManager.playSoundEffect("/GUI/Assets/fail.wav", 2.0f);
+                    Controlador.getHome().getIaStatusLabel().setText("El combate no se llevará a cabo.");
+                    //audioManager.playSoundEffect("/GUI/Assets/fail.wav", 2.0f);
                     Thread.sleep((long) ((getTime() * 1000 * 0.3) * 0.6));
 
                     this.getAdministrator().getStarWars().getQueue4().enqueue(this.starWarsFighter);
@@ -91,10 +94,10 @@ public class IA extends Thread{
     }
 
     private void clearFightersUI() {
-        ControlMainUI.getHome().getIaStatusLabel().setText("Esperando nuevos personajes...");
-        ControlMainUI.getHome().getWinnerLabelID().setText("");
-        ControlMainUI.getHome().getStarWarsFighter().clearFightersLabels();
-        ControlMainUI.getHome().getStarTrekFighter().clearFightersLabels();
+        Controlador.getHome().getIaStatusLabel().setText("Esperando nuevos personajes...");
+        Controlador.getHome().getWinnerLabelID().setText("");
+        Controlador.getHome().getStarWarsFighter().clearFightersLabels();
+        Controlador.getHome().getStarTrekFighter().clearFightersLabels();
     }
 
     private Personaje getWinnerCharacter(Personaje starWarsFighter, Personaje starTrekFighter) {
@@ -109,26 +112,26 @@ public class IA extends Thread{
             int damage;
             if (isStarWarsTurn) {
                 // Star Wars ataca
-                ControlMainUI.getHome().getStarWarsFighter().getStatusLabel().setText("Enviando daño");
-                ControlMainUI.getHome().getStarTrekFighter().getStatusLabel().setText("Recibiendo daño");
+                Controlador.getHome().getStarWarsFighter().getStatusLabel().setText("Enviando daño");
+                Controlador.getHome().getStarTrekFighter().getStatusLabel().setText("Recibiendo daño");
                 damage = calculateDamage(starWarsFighter, starTrekFighter);
                 starTrekFighter.takeDamage(damage);
-                ControlMainUI.getHome().getStarTrekFighter().getHPLabel().setText(String.valueOf(starTrekFighter.getHitPoints()));
+                Controlador.getHome().getStarTrekFighter().getHPLabel().setText(String.valueOf(starTrekFighter.getHitPoints()));
                 if (starTrekFighter.getHitPoints() <= 0) combatEnd = true;
             } else {
                 // Star Trek ataca
-                ControlMainUI.getHome().getStarTrekFighter().getStatusLabel().setText("Enviando daño");
-                ControlMainUI.getHome().getStarWarsFighter().getStatusLabel().setText("Recibiendo daño");
+                Controlador.getHome().getStarTrekFighter().getStatusLabel().setText("Enviando daño");
+                Controlador.getHome().getStarWarsFighter().getStatusLabel().setText("Recibiendo daño");
                 damage = calculateDamage(starTrekFighter, starWarsFighter);
                 starWarsFighter.takeDamage(damage);
-                ControlMainUI.getHome().getStarWarsFighter().getHPLabel().setText(String.valueOf(starWarsFighter.getHitPoints()));
+                Controlador.getHome().getStarWarsFighter().getHPLabel().setText(String.valueOf(starWarsFighter.getHitPoints()));
                 if (starWarsFighter.getHitPoints() <= 0) combatEnd = true;
             }
 
             // Alterna el turno para el próximo ciclo
             isStarWarsTurn = !isStarWarsTurn;
-            ControlMainUI.getHome().getStarTrekFighter().getHPLabel().setText(String.valueOf(starTrekFighter.getHitPoints()));
-            ControlMainUI.getHome().getStarWarsFighter().getHPLabel().setText(String.valueOf(starWarsFighter.getHitPoints()));
+            Controlador.getHome().getStarTrekFighter().getHPLabel().setText(String.valueOf(starTrekFighter.getHitPoints()));
+            Controlador.getHome().getStarWarsFighter().getHPLabel().setText(String.valueOf(starWarsFighter.getHitPoints()));
 
             // Simula una pausa por ronda
             try {
@@ -144,11 +147,11 @@ public class IA extends Thread{
         // Aquí se decide el ganador basado en quién tiene más HP.
             if (starWarsFighter.getHitPoints() > starTrekFighter.getHitPoints()) {
                 this.victoriesStarWars++;
-                ControlMainUI.getHome().getTvPanelUI1().getVictoriesLabel().setText(String.valueOf(this.victoriesStarWars));
+                Controlador.getHome().getmoviePanelStarWars().getVictoriesLabel().setText(String.valueOf(this.victoriesStarWars));
                 return starWarsFighter;
             } else if (starWarsFighter.getHitPoints() < starTrekFighter.getHitPoints()) {
                 this.victoriesStarTrek++;
-                ControlMainUI.getHome().getTvPanelUI2().getVictoriesLabel().setText(String.valueOf(this.victoriesStarTrek));
+                Controlador.getHome().getmoviePanelStarTrek().getVictoriesLabel().setText(String.valueOf(this.victoriesStarTrek));
                 return starTrekFighter;
             } else {
                 // En caso de empate por HP
@@ -159,11 +162,11 @@ public class IA extends Thread{
         // Determinar ganador basado en HP restante.
         if (starWarsFighter.getHitPoints() > 0) {
             this.victoriesStarWars++;
-            ControlMainUI.getHome().getTvPanelUI1().getVictoriesLabel().setText(String.valueOf(this.victoriesStarWars));
+            Controlador.getHome().getmoviePanelStarWars().getVictoriesLabel().setText(String.valueOf(this.victoriesStarWars));
             return starWarsFighter;
         } else if (starTrekFighter.getHitPoints() > 0) {
             this.victoriesStarTrek++;
-            ControlMainUI.getHome().getTvPanelUI2().getVictoriesLabel().setText(String.valueOf(this.victoriesStarTrek));
+            Controlador.getHome().getmoviePanelStarTrek().getVictoriesLabel().setText(String.valueOf(this.victoriesStarTrek));
             return starTrekFighter;
         } else {
             return null; // Manejo de empate
@@ -206,7 +209,7 @@ public class IA extends Thread{
      }
 
     private void updateCardsUI(Personaje starWarsCharacter, Personaje starTrekCharacter) {
-        ImageUtils imageUtils = new ImageUtils();
+        RenderImage imageUtils = new RenderImage();
 
         ImageIcon starWarsCardIA = imageUtils.loadScaledImage(starWarsCharacter.getUrlSource(), 150, 200
         );
@@ -214,13 +217,13 @@ public class IA extends Thread{
         ImageIcon starTrekCardIA = imageUtils.loadScaledImage(starTrekCharacter.getUrlSource(), 150, 200
         );
 
-        ControlMainUI.getHome().getStarWarsFighter().getFighterCard().setIcon(starWarsCardIA);
-        ControlMainUI.getHome().getStarWarsFighter().getCharacterIDLabel().setText(starWarsCharacter.getCharacterId());
-        ControlMainUI.getHome().getStarWarsFighter().getHPLabel().setText(String.valueOf(starWarsCharacter.getHitPoints()));
+        Controlador.getHome().getStarWarsFighter().getFighterCard().setIcon(starWarsCardIA);
+        Controlador.getHome().getStarWarsFighter().getCharacterIDLabel().setText(starWarsCharacter.getCharacterId());
+        Controlador.getHome().getStarWarsFighter().getHPLabel().setText(String.valueOf(starWarsCharacter.getHitPoints()));
 
-        ControlMainUI.getHome().getstarTrekFighter().getFighterCard().setIcon(starTrekCardIA);
-        ControlMainUI.getHome().getstarTrekFighter().getCharacterIDLabel().setText(starTrekCharacter.getCharacterId());
-        ControlMainUI.getHome().getstarTrekFighter().getHPLabel().setText(String.valueOf(starTrekCharacter.getHitPoints()));
+        Controlador.getHome().getStarTrekFighter().getFighterCard().setIcon(starTrekCardIA);
+        Controlador.getHome().getStarTrekFighter().getCharacterIDLabel().setText(starTrekCharacter.getCharacterId());
+        Controlador.getHome().getStarTrekFighter().getHPLabel().setText(String.valueOf(starTrekCharacter.getHitPoints()));
     }
 
     public Personaje getStarWarsFighter() {

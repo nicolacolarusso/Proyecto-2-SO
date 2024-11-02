@@ -17,11 +17,11 @@ public class Controlador {
         return home;
     }
 
-    public static void updateUIQueue(String tvShow, Cola queue1, Cola queue2, Cola queue3, Cola queue4) {
-        if (tvShow.equalsIgnoreCase("regularshow")) {
-            home.getTvPanelUI1().updateUIQueue(queue1, queue2, queue3, queue4);
+    public static void updateUICola(String movie, Cola queue1, Cola queue2, Cola queue3, Cola queue4) {
+        if (movie.equalsIgnoreCase("starwars")) {
+            home.getmoviePanelStarWars().updateUICola(queue1, queue2, queue3, queue4);
         } else {
-            home.getTvPanelUI2().updateUIQueue(queue1, queue2, queue3, queue4);
+            home.getmoviePanelStarTrek().updateUICola(queue1, queue2, queue3, queue4);
         }
     }
 

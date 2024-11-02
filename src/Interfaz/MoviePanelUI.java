@@ -60,13 +60,13 @@ public class MoviePanelUI extends javax.swing.JPanel {
         jPanel2.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 100));
 
         victoriesLabel.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
-        victoriesLabel.setForeground(new java.awt.Color(0, 204, 0));
+        victoriesLabel.setForeground(new java.awt.Color(255, 204, 0));
         victoriesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         victoriesLabel.setText("0");
         jPanel2.add(victoriesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 204, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("VICTORIAS");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 150, -1));
