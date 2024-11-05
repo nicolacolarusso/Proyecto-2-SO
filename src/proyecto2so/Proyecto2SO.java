@@ -15,8 +15,8 @@ public class Proyecto2SO {
      */
     public static void main(String[] args) {
              
-        //mainApp app = new mainApp();
-        //app.start();
+        mainApp app = new mainApp();
+        app.start();
     }
     
 }
