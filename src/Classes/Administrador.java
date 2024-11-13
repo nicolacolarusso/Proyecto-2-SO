@@ -73,10 +73,11 @@ public class Administrador extends Thread {
             try {
                 int battleDuration = Controlador.getHome().getBattleDuration().getValue();
                 ia.setTime(battleDuration);
-
+                synchronizeReinforcementQueues();
+                /*
                 updateReinforcementQueue(this.starWars);
                 updateReinforcementQueue(this.starTrek);
-
+*/
                 if (numRound == 2) {
                     tryCreateCharacters();
                     numRound = 0;
@@ -154,8 +155,34 @@ public class Administrador extends Thread {
                 this.getStarTrek().getQueue3(),
                 this.getStarTrek().getQueue4());
     }
+    private void synchronizeReinforcementQueues() {
+    // Verifica que ambas colas de refuerzo tengan personajes
+    if (!this.starWars.getQueue4().isEmpty() && !this.starTrek.getQueue4().isEmpty()) {
+        
+        // Genera números aleatorios para determinar la probabilidad de mover a ambos personajes
+        double randomNumStarWars = Math.random();
+        double randomNumStarTrek = Math.random();
+        
+        // Desencola temporalmente el primer personaje de cada cola de refuerzos
+        Personaje starWarsCharacter = this.starWars.getQueue4().dequeue();
+        Personaje starTrekCharacter = this.starTrek.getQueue4().dequeue();
 
-    private void updateReinforcementQueue(Saga tvShow) {
+        // Verifica si ambos cumplen con el 40% de probabilidad al mismo tiempo
+        if (randomNumStarWars <= 0.4 && randomNumStarTrek <= 0.4) {
+            // Si ambos cumplen la probabilidad, los mueve a Queue1
+            starWarsCharacter.setCounter(0);
+            starTrekCharacter.setCounter(0);
+            this.starWars.getQueue1().enqueue(starWarsCharacter);
+            this.starTrek.getQueue1().enqueue(starTrekCharacter);
+        } else {
+            // Si alguno no cumple, ambos regresan al final de sus respectivas colas de refuerzo
+            this.starWars.getQueue4().enqueue(starWarsCharacter);
+            this.starTrek.getQueue4().enqueue(starTrekCharacter);
+        }
+    }
+    }
+
+/*    private void updateReinforcementQueue(Saga tvShow) {
         if (!(tvShow.getQueue4().isEmpty())) {
             double randomNum = Math.random();
 
@@ -169,7 +196,7 @@ public class Administrador extends Thread {
             }
         }
     }
-
+*/
     private void tryCreateCharacters() {
         double randomNum = Math.random();
 

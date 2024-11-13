@@ -161,7 +161,7 @@ public class Home extends javax.swing.JFrame {
     private void battleDurationStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_battleDurationStateChanged
         // TODO add your handling code here:
         int newSpeed = getBattleDuration().getValue();
-        //        app.getIaArena().setCombatSpeed(newSpeed);
+        //       app.getIaArena().setCombatSpeed(newSpeed);
     }//GEN-LAST:event_battleDurationStateChanged
 
     /**
