@@ -133,7 +133,14 @@ public class Cola {
         }
         return aux;
     }
-
+    public Personaje peek() {
+        // Si la cola no está vacía, devuelve el primer personaje (front)
+        if (!isEmpty()) {
+            return front.getTInfo();
+        }
+        // Si la cola está vacía, puedes devolver null o lanzar una excepción según el comportamiento deseado
+        return null;
+    }
     /**
      * Libera todos los nodo que estan en la cola.
      */

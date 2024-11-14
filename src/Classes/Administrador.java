@@ -156,31 +156,32 @@ public class Administrador extends Thread {
                 this.getStarTrek().getQueue4());
     }
     private void synchronizeReinforcementQueues() {
-    // Verifica que ambas colas de refuerzo tengan personajes
-    if (!this.starWars.getQueue4().isEmpty() && !this.starTrek.getQueue4().isEmpty()) {
-        
-        // Genera números aleatorios para determinar la probabilidad de mover a ambos personajes
-        double randomNumStarWars = Math.random();
-        double randomNumStarTrek = Math.random();
-        
-        // Desencola temporalmente el primer personaje de cada cola de refuerzos
-        Personaje starWarsCharacter = this.starWars.getQueue4().dequeue();
-        Personaje starTrekCharacter = this.starTrek.getQueue4().dequeue();
+        // Verifica que ambas colas de refuerzo tengan personajes
+        if (!this.starWars.getQueue4().isEmpty() && !this.starTrek.getQueue4().isEmpty()) {
 
-        // Verifica si ambos cumplen con el 40% de probabilidad al mismo tiempo
-        if (randomNumStarWars <= 0.4 && randomNumStarTrek <= 0.4) {
-            // Si ambos cumplen la probabilidad, los mueve a Queue1
-            starWarsCharacter.setCounter(0);
-            starTrekCharacter.setCounter(0);
-            this.starWars.getQueue1().enqueue(starWarsCharacter);
-            this.starTrek.getQueue1().enqueue(starTrekCharacter);
-        } else {
-            // Si alguno no cumple, ambos regresan al final de sus respectivas colas de refuerzo
-            this.starWars.getQueue4().enqueue(starWarsCharacter);
-            this.starTrek.getQueue4().enqueue(starTrekCharacter);
+            // Obtiene el primer personaje de cada cola sin desencolar
+            Personaje starWarsCharacter = this.starWars.getQueue4().peek();
+            Personaje starTrekCharacter = this.starTrek.getQueue4().peek();
+
+            // Genera números aleatorios para determinar la probabilidad de mover a ambos personajes
+            double randomNumStarWars = Math.random();
+            double randomNumStarTrek = Math.random();
+
+            // Verifica si ambos cumplen con el 40% de probabilidad al mismo tiempo
+            if (randomNumStarWars <= 0.4 && randomNumStarTrek <= 0.4) {
+                // Solo si ambos cumplen la probabilidad, se desencolan y mueven a Queue1
+                this.starWars.getQueue4().dequeue(); // Ahora sí se elimina de la cola
+                this.starTrek.getQueue4().dequeue();
+
+                starWarsCharacter.setCounter(0);
+                starTrekCharacter.setCounter(0);
+                this.starWars.getQueue1().enqueue(starWarsCharacter);
+                this.starTrek.getQueue1().enqueue(starTrekCharacter);
+            }
+            // Si no se cumple la probabilidad, no se realiza ningún cambio en las colas.
         }
     }
-    }
+
 
 /*    private void updateReinforcementQueue(Saga tvShow) {
         if (!(tvShow.getQueue4().isEmpty())) {
