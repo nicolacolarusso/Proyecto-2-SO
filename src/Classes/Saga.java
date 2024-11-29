@@ -5,9 +5,9 @@
 package Classes;
 
 import Extra.ExtraFunctions;
-import EstrcuturaDatos.Cola;
-import EstrcuturaDatos.Lista;
-import EstrcuturaDatos.Nodo;
+import EstructuraDatos.Cola;
+import EstructuraDatos.Lista;
+import EstructuraDatos.Nodo;
 
 /**
  *
@@ -31,7 +31,7 @@ public class Saga {
         this.yellowCards = yellowCards;
         this.greenCards = greenCards;
         this.redCards = redCards;
-
+        
         this.packageImg = packageImg;
         this.logoUrl = this.packageImg + "/logo.png";
 
@@ -45,7 +45,7 @@ public class Saga {
         int priorityLevel = character.getPriorityLevel();
 
         String characterId = character.getNameCharacter() + "-"
-                + HelpersFunctions.priority[priorityLevel - 1] + "-"
+                + ExtraFunctions.priority[priorityLevel - 1] + "-"
                 + characterNode.getIdNode();
 
         String nameCharacter = character.getNameCharacter();

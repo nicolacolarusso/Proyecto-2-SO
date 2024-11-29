@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package EstrcuturaDatos;
+package EstructuraDatos;
 import Classes.Personaje;
 /**
  *
@@ -133,7 +133,14 @@ public class Cola {
         }
         return aux;
     }
-
+    public Personaje peek() {
+        // Si la cola no está vacía, devuelve el primer personaje (front)
+        if (!isEmpty()) {
+            return front.getTInfo();
+        }
+        // Si la cola está vacía, puedes devolver null o lanzar una excepción según el comportamiento deseado
+        return null;
+    }
     /**
      * Libera todos los nodo que estan en la cola.
      */
